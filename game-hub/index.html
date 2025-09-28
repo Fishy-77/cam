@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Game Hub</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0d0d0d;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      text-align: center;
+      padding: 20px;
+      background: #111;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    h1 {
+      margin: 0;
+      color: #00ffcc;
+    }
+    #searchBar {
+      margin-top: 10px;
+      padding: 10px;
+      width: 80%;
+      max-width: 400px;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+    }
+    .categories {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .category-btn {
+      background: #222;
+      color: #00ffcc;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .category-btn:hover {
+      background: #00ffcc;
+      color: #111;
+    }
+    .game-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .game-card {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .game-card:hover {
+      background: #2a2a2a;
+      transform: scale(1.05);
+    }
+    a {
+      color: #00ffcc;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎮 My Game Hub</h1>
+    <input type="text" id="searchBar" placeholder="Search games...">
+  </header>
+
+  <div class="categories">
+    <button class="category-btn" onclick="filterGames('all')">All</button>
+    <button class="category-btn" onclick="filterGames('arcade')">Arcade</button>
+    <button class="category-btn" onclick="filterGames('puzzle')">Puzzle</button>
+    <button class="category-btn" onclick="filterGames('shooter')">Shooter</button>
+  </div>
+
+  <div class="game-list" id="gameList">
+    <!-- Example games (replace links with your own) -->
+    <div class="game-card" data-category="arcade"><a href="https://example.com/game1" target="_blank">Arcade Game 1</a></div>
+    <div class="game-card" data-category="arcade"><a href="https://example.com/game2" target="_blank">Arcade Game 2</a></div>
+    <div class="game-card" data-category="puzzle"><a href="https://example.com/game3" target="_blank">Puzzle Game 1</a></div>
+    <div class="game-card" data-category="shooter"><a href="https://example.com/game4" target="_blank">Shooter Game 1</a></div>
+    <div class="game-card" data-category="puzzle"><a href="https://example.com/game5" target="_blank">Puzzle Game 2</a></div>
+  </div>
+
+  <script>
+    const searchBar = document.getElementById("searchBar");
+    const gameCards = document.querySelectorAll(".game-card");
+
+    searchBar.addEventListener("keyup", function () {
+      const searchText = searchBar.value.toLowerCase();
+      gameCards.forEach(card => {
+        const gameName = card.textContent.toLowerCase();
+        card.style.display = gameName.includes(searchText) ? "block" : "none";
+      });
+    });
+
+    function filterGames(category) {
+      gameCards.forEach(card => {
+        if (category === "all" || card.dataset.category === category) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+  </script>
+</body>
+</html>
